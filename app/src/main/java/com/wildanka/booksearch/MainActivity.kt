@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         val viewModel: BookSearchViewModel = ViewModelProviders.of(this).get(BookSearchViewModel::class.java)
-        viewModel.getBookSearchResults("")?.observe(this, Observer {
+        viewModel.getBookSearchResults("harry potter")?.observe(this, Observer {
             Log.e("TAG",it.toString())
         })
     }

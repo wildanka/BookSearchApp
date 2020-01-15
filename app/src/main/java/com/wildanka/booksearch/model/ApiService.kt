@@ -6,7 +6,7 @@ import retrofit2.http.Query
 
 interface ApiService{
 
-    @GET("/books/v1/volumes")
+    @GET("books/v1/volumes")
     fun getBookSearchResult(
         @Query("q") query: String?
     ): Call<BookFeedData>
