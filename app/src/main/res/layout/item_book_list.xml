@@ -4,7 +4,7 @@
                                                    xmlns:tools="http://schemas.android.com/tools"
                                                    android:orientation="vertical"
                                                    android:layout_width="match_parent"
-                                                   android:layout_height="match_parent">
+                                                   android:layout_height="wrap_content">
 
     <TextView
             android:id="@+id/tv_book_title"
@@ -16,8 +16,9 @@
             app:layout_constraintHorizontal_bias="1.0" app:layout_constraintTop_toBottomOf="@+id/rb_book_rating"
             android:layout_marginTop="8dp"/>
     <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" tools:srcCompat="@tools:sample/avatars" android:id="@+id/iv_book_thumbnail"
+            android:layout_width="90dp"
+            android:scaleType="fitCenter"
+            android:layout_height="120dp" tools:srcCompat="@tools:sample/avatars" android:id="@+id/iv_book_thumbnail"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="8dp" android:layout_marginStart="8dp"/>
     <TextView

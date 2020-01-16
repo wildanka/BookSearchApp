@@ -23,26 +23,26 @@ data class BookSaleInfo(
     @SerializedName("isEbook") var isEbook: Boolean? = null
 )
 
+//@SerializedName("readingModes") var readingModes: List<String>? = null,
 data class BookVolumeInfo(
     @SerializedName("title") var title: String? = null,
     @SerializedName("authors") var authors: List<String>? = null,
-    @SerializedName("publisher") var publisher: List<String>? = null,
-    @SerializedName("publishedDate") var publishedDate: List<String>? = null,
+    @SerializedName("publisher") var publisher: String? = null,
+    @SerializedName("publishedDate") var publishedDate: String? = null,
     @SerializedName("industryIdentifiers") var industryIdentifiers: List<IndustryIdentifier>? = null,
-    @SerializedName("readingModes") var readingModes: List<String>? = null,
-    @SerializedName("pageCount") var pageCount: List<String>? = null,
-    @SerializedName("printType") var printType: List<String>? = null,
+    @SerializedName("pageCount") var pageCount: Long? = null,
+    @SerializedName("printType") var printType: String? = null,
     @SerializedName("categories") var categories: List<String>? = null,
-    @SerializedName("averageRating") var averageRating: List<String>? = null,
-    @SerializedName("ratingsCount") var ratingsCount: List<String>? = null,
-    @SerializedName("maturityRating") var maturityRating: List<String>? = null,
+    @SerializedName("averageRating") var averageRating: Double? = null,
+    @SerializedName("ratingsCount") var ratingsCount: Long? = null,
+    @SerializedName("maturityRating") var maturityRating: String? = null,
     @SerializedName("imageLinks") var imageLinks: ImageLinks? = null,
     @SerializedName("language") var language: String? = null
 )
 
 data class ImageLinks(
-    @SerializedName("smallThumbnail") var smallThumbnail: List<String>? = null,
-    @SerializedName("thumbnail") var thumbnail: List<String>? = null
+    @SerializedName("smallThumbnail") var smallThumbnail: String? = null,
+    @SerializedName("thumbnail") var thumbnail: String? = null
 )
 
 data class IndustryIdentifier(

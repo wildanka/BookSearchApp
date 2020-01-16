@@ -28,7 +28,14 @@ class MainActivity : AppCompatActivity() {
 
         val viewModel: BookSearchViewModel = ViewModelProviders.of(this).get(BookSearchViewModel::class.java)
         viewModel.getBookSearchResults("harry potter")?.observe(this, Observer {
-            adapter.setupBooksData(it)
+            if (it != null) {
+                Log.e("TES", it[0].bookVolumeInfo?.title!!)
+                adapter.setupBooksData(it)
+            }else{
+                Log.e("TES", "NULL BRADAH")
+            }
+            Log.e("TES", "NULL BRADAH")
+
         })
     }
 
