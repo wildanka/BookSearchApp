@@ -7,7 +7,10 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
+import com.wildanka.booksearch.view.BooksAdapter
 import com.wildanka.booksearch.viewmodel.BookSearchViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -18,15 +21,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
-
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
+        val rvBookSearchResults = findViewById<RecyclerView>(R.id.rv_book_search_results)
+        val adapter = BooksAdapter()
+        rvBookSearchResults.layoutManager = LinearLayoutManager(this)
+        rvBookSearchResults.adapter = adapter
 
         val viewModel: BookSearchViewModel = ViewModelProviders.of(this).get(BookSearchViewModel::class.java)
         viewModel.getBookSearchResults("harry potter")?.observe(this, Observer {
-            Log.e("TAG",it.toString())
+            adapter.setupBooksData(it)
         })
     }
 
