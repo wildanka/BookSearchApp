@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
-import androidx.appcompat.view.menu.MenuView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.wildanka.booksearch.R
@@ -42,7 +41,7 @@ class BooksAdapter : RecyclerView.Adapter<BooksAdapter.BooksViewHolder>() {
 
         fun bind(bookData: BookData?) {
             tvTitle.text = bookData?.bookVolumeInfo?.title
-            tvAuthors.text = bookData?.bookVolumeInfo?.authors?.joinToString()
+            tvAuthors.text = bookData?.bookVolumeInfo?.authors?.joinToString() ?: "No Author Data Found"
             Glide.with(itemView.context).load(bookData?.bookVolumeInfo?.imageLinks?.thumbnail).into(ivThumbnail)
         }
     }

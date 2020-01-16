@@ -9,7 +9,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.snackbar.Snackbar
 import com.wildanka.booksearch.view.BooksAdapter
 import com.wildanka.booksearch.viewmodel.BookSearchViewModel
 import kotlinx.android.synthetic.main.activity_main.*
@@ -27,15 +26,13 @@ class MainActivity : AppCompatActivity() {
         rvBookSearchResults.adapter = adapter
 
         val viewModel: BookSearchViewModel = ViewModelProviders.of(this).get(BookSearchViewModel::class.java)
-        viewModel.getBookSearchResults("harry potter")?.observe(this, Observer {
+        viewModel.getBookSearchResults("{keyword")?.observe(this, Observer {
             if (it != null) {
                 Log.e("TES", it[0].bookVolumeInfo?.title!!)
                 adapter.setupBooksData(it)
             }else{
                 Log.e("TES", "NULL BRADAH")
             }
-            Log.e("TES", "NULL BRADAH")
-
         })
     }
 
