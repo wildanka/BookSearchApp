@@ -3,14 +3,11 @@ package com.wildanka.booksearch.viewmodel
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.android.example.livedatabuilder.util.getOrAwaitValue
 import com.wildanka.booksearch.model.BookData
-import com.wildanka.booksearch.model.BookFeedData
 import com.wildanka.booksearch.repository.BookSearchRepository
 import org.junit.Assert
-import org.junit.Test
-
-import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
+import org.junit.Test
 import org.mockito.Mock
 import org.mockito.Mockito
 

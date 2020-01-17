@@ -18,7 +18,7 @@ object ApiClient {
     fun <S> createService(serviceClass: Class<S>): S {
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
 
-        httpClient.addInterceptor(loggingInterceptor)
+//        httpClient.addInterceptor(loggingInterceptor) for logging/development purpose only
 
         val client = httpClient.build()
         val retrofit = builder.client(client).build()

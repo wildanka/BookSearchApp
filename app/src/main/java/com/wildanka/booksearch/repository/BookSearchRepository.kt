@@ -1,6 +1,5 @@
 package com.wildanka.booksearch.repository
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.wildanka.booksearch.model.ApiService
 import com.wildanka.booksearch.model.BookData
@@ -25,10 +24,6 @@ class BookSearchRepository {
             override fun onResponse(call: Call<BookFeedData?>, response: Response<BookFeedData?>) {
                 if (response.code() == 200) {
                     resultDatas.value = response.body()?.items
-                    Log.e(TAG, resultDatas.value?.get(0)?.bookVolumeInfo?.title)
-                }else{
-
-                    Log.e(TAG, response.code().toString())
                 }
             }
         })

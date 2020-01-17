@@ -2,4 +2,6 @@
     <string name="app_name">BookSearch</string>
     <string name="action_settings">Settings</string>
     <string name="cari">Cari</string>
+    <string name="back_twice_to_exit">Tekan tombol BACK kembali untuk keluar aplikasi</string>
+    <string name="no_data_found">Tidak Ada Data Ditemukan</string>
 </resources>

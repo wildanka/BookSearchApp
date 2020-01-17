@@ -1,6 +1,7 @@
 package com.wildanka.booksearch
 
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -51,8 +52,7 @@ class MainActivity : AppCompatActivity() {
                 override fun onQueryTextSubmit(query: String?): Boolean {
                     if (query!!.isNotEmpty()) {
                         val searchQuery = query.toLowerCase()
-                        Toast.makeText(this@MainActivity, "Melakukan Pencarian : $searchQuery", Toast.LENGTH_SHORT)
-                            .show()
+//                        Toast.makeText(this@MainActivity, "Melakukan Pencarian : $searchQuery", Toast.LENGTH_SHORT).show()
                         searchBookData(searchQuery)
                     } else {
                         searchBookData("{keyword")
@@ -62,11 +62,10 @@ class MainActivity : AppCompatActivity() {
 
                 override fun onQueryTextChange(newText: String?): Boolean {
                     if (newText!!.isNotEmpty()) {
-//                        val search = newText.toLowerCase()
-//                        Log.d("TAG",search)
-//                        Toast.makeText(applicationContext,search,Toast.LENGTH_SHORT).show()
+                        val searchQuery = newText.toLowerCase()
+                        searchBookData(searchQuery)
                     } else {
-//                        Toast.makeText(applicationContext,"kosong",Toast.LENGTH_SHORT).show()
+                        searchBookData("{keyword")
                     }
                     return true
                 }
@@ -92,8 +91,22 @@ class MainActivity : AppCompatActivity() {
             if (it != null) {
                 adapter.setupBooksData(it)
             } else {
-                Toast.makeText(this@MainActivity, "Tidak Ada Data Ditemukan", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this@MainActivity, getString(R.string.no_data_found), Toast.LENGTH_SHORT).show();
             }
         })
+    }
+
+    //Press Back Again to Exit
+    private var doubleBackToExitPressedOnce = false
+    override fun onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed()
+            return
+        }
+
+        this.doubleBackToExitPressedOnce = true
+        Toast.makeText(this, getString(R.string.back_twice_to_exit), Toast.LENGTH_SHORT).show()
+
+        Handler().postDelayed(Runnable { doubleBackToExitPressedOnce = false }, 2000)
     }
 }

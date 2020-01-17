@@ -15,7 +15,7 @@ class BookSearchViewModel : ViewModel(){
         return bookSearchResults
     }
 
-    fun loadBookSearchResult(query: String?){
+    private fun loadBookSearchResult(query: String?){
         bookSearchResults = repo.fetchSearchBookResult(query)
     }
 }
