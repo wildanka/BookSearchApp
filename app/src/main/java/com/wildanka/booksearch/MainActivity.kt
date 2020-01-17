@@ -4,7 +4,13 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.EditText
+import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatEditText
+import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,31 +20,58 @@ import com.wildanka.booksearch.viewmodel.BookSearchViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-
+    private lateinit var viewModel: BookSearchViewModel
+    private lateinit var adapter: BooksAdapter
+    private lateinit var pbLoading: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
         val rvBookSearchResults = findViewById<RecyclerView>(R.id.rv_book_search_results)
-        val adapter = BooksAdapter()
+        pbLoading = findViewById<ProgressBar>(R.id.pb_search)
+        adapter = BooksAdapter()
         rvBookSearchResults.layoutManager = LinearLayoutManager(this)
         rvBookSearchResults.adapter = adapter
 
-        val viewModel: BookSearchViewModel = ViewModelProviders.of(this).get(BookSearchViewModel::class.java)
-        viewModel.getBookSearchResults("{keyword")?.observe(this, Observer {
-            if (it != null) {
-                Log.e("TES", it[0].bookVolumeInfo?.title!!)
-                adapter.setupBooksData(it)
-            }else{
-                Log.e("TES", "NULL BRADAH")
-            }
-        })
+        viewModel = ViewModelProviders.of(this).get(BookSearchViewModel::class.java)
+        searchBookData("{keyword")
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_main, menu)
+        val searchItem = menu.findItem(R.id.action_search)
+        if (searchItem != null) {
+            val searchView = searchItem.actionView as SearchView
+            val editText = searchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
+            editText.hint = "Cari Buku..."
+
+            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    if (query!!.isNotEmpty()) {
+                        val searchQuery = query.toLowerCase()
+                        Toast.makeText(this@MainActivity, "Melakukan Pencarian : $searchQuery", Toast.LENGTH_SHORT)
+                            .show()
+                        searchBookData(searchQuery)
+                    } else {
+                        searchBookData("{keyword")
+                    }
+                    return true
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    if (newText!!.isNotEmpty()) {
+//                        val search = newText.toLowerCase()
+//                        Log.d("TAG",search)
+//                        Toast.makeText(applicationContext,search,Toast.LENGTH_SHORT).show()
+                    } else {
+//                        Toast.makeText(applicationContext,"kosong",Toast.LENGTH_SHORT).show()
+                    }
+                    return true
+                }
+            })
+        }
         return true
     }
 
@@ -47,8 +80,20 @@ class MainActivity : AppCompatActivity() {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
-            R.id.action_settings -> true
+            R.id.action_search -> true
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun searchBookData(keyword: String) {
+        pbLoading.visibility = View.VISIBLE
+        viewModel.getBookSearchResults(keyword)?.observe(this, Observer {
+            pbLoading.visibility = View.INVISIBLE
+            if (it != null) {
+                adapter.setupBooksData(it)
+            } else {
+                Toast.makeText(this@MainActivity, "Tidak Ada Data Ditemukan", Toast.LENGTH_SHORT).show();
+            }
+        })
     }
 }
