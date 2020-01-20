@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
                 override fun onQueryTextSubmit(query: String?): Boolean {
                     if (query!!.isNotEmpty()) {
                         val searchQuery = query.toLowerCase()
-//                        Toast.makeText(this@MainActivity, "Melakukan Pencarian : $searchQuery", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@MainActivity, "Melakukan Pencarian : $searchQuery", Toast.LENGTH_SHORT).show()
                         searchBookData(searchQuery)
                     } else {
                         searchBookData("{keyword")
@@ -61,12 +61,6 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 override fun onQueryTextChange(newText: String?): Boolean {
-                    if (newText!!.isNotEmpty()) {
-                        val searchQuery = newText.toLowerCase()
-                        searchBookData(searchQuery)
-                    } else {
-                        searchBookData("{keyword")
-                    }
                     return true
                 }
             })
