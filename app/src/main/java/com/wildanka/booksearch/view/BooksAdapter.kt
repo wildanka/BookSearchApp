@@ -43,6 +43,7 @@ class BooksAdapter : RecyclerView.Adapter<BooksAdapter.BooksViewHolder>() {
             tvTitle.text = bookData?.bookVolumeInfo?.title
             tvAuthors.text = bookData?.bookVolumeInfo?.authors?.joinToString() ?: "No Author Data Found"
             Glide.with(itemView.context).load(bookData?.bookVolumeInfo?.imageLinks?.thumbnail).into(ivThumbnail)
+            rbRating.rating = bookData?.bookVolumeInfo?.averageRating?.toFloat() ?: 0.0F
         }
     }
 }
